@@ -12,12 +12,12 @@ bool Stack<T>::pop(){
 
 template <typename T>
 T Stack<T>::peek() const{
-    
+    return top->getEntry();
 }
 
 template <typename T>
 bool Stack<T>::isEmpty() const{
-    
+    return itemCount == 0;
 }
 
 template <typename T>
