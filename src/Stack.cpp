@@ -19,3 +19,10 @@ template <typename T>
 bool Stack<T>::isEmpty() const{
     
 }
+
+template <typename T>
+Stack<T>::~Stack(){
+    for (i = 0; i < itemCount; i++){
+        pop();
+    }
+}
