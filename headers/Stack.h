@@ -10,5 +10,10 @@ class Stack : public StackInterface<T>{
     Node<T>* top;
 
 public:
-    
+    bool push(const T& newEntry);
+    bool pop();
+    T peek() const;
+    bool isEmpty() const;
+    ~Stack();
+
 }
