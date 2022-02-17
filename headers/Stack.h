@@ -7,13 +7,13 @@
 template typename<T>
 class Stack : public StackInterface<T>{
     int itemCount = 0;
-    Node<T>* top;
+    Node<T>* top = nullptr;
 
 public:
+    Stack();
     bool push(const T& newEntry);
     bool pop();
     T peek() const;
     bool isEmpty() const;
     ~Stack();
-
 }
