@@ -4,7 +4,7 @@
 #include "StackInterface.h"
 #include "Node.h"
 
-template typename<T>
+template <typename T>
 class Stack : public StackInterface<T>{
     int itemCount = 0;
     Node<T>* top = nullptr;
@@ -16,4 +16,6 @@ public:
     T peek() const;
     bool isEmpty() const;
     ~Stack();
-}
+};
+
+#include "../src/Stack.cpp"

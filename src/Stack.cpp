@@ -10,7 +10,7 @@ template <typename T>
 bool Stack<T>::push(const T& newEntry){
     Node<T>* newNode = new Node<T>(newEntry, top);
     top = newNode;
-    itemcount++;
+    itemCount++;
     return true;
 
 }
@@ -28,7 +28,7 @@ bool Stack<T>::pop(){
 
 template <typename T>
 T Stack<T>::peek() const{
-    return top->getEntry();
+    return top->getItem();
 }
 
 template <typename T>
@@ -38,7 +38,7 @@ bool Stack<T>::isEmpty() const{
 
 template <typename T>
 Stack<T>::~Stack(){
-    for (i = 0; i < itemCount; i++){
+    for (int i = 0; i < itemCount; i++){
         pop();
     }
 }
