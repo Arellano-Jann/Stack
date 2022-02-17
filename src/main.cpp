@@ -8,6 +8,7 @@ int main(){
     std::cout<< stack.isEmpty() << std::endl;
     std::cout<< stack.peek() << std::endl;
     std::cout<< stack.pop() << std::endl;
+    std::cout<< stack.isEmpty() << std::endl;
 
     return 0;
 }
