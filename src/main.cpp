@@ -13,33 +13,33 @@ int main(){
         char inp = input[i];
         ExpressionAnalyzer analyze(inp);
         int type = analyze.getType();
-    //     if (type >= 0){ // checks if it is an operator
-    //         if (operatorStack.isEmpty() != true){ // checks if stack is empty
-    //             ExpressionAnalyzer oldTerm(operatorStack.peek());
-    //             int oldType = oldTerm.getType(); // assigns prio number to oldTerm
-    //             if (oldType < type && oldType < 5){ // checks prio and if it's not a parentheses
-    //                 for (int j = 0; operatorStack.isEmpty(); j--){
-    //                     if (operatorStack.peek() == '(') break; // breaks if '(' is found
-    //                     postFix += operatorStack.peek(); // adds to postfix expr
-    //                     operatorStack.pop(); // deletes the last operator added
-    //                 }
-    //                 if (operatorStack.peek() == '(') operatorStack.pop(); // pops the '('
-    //             }
-    //         }
-    //         operatorStack.push(inp); // pushes operator to stack
-    //     }
-    //     else{
-    //         postFix += inp; // adds to postfix if number
-    //     }
-    //     if (operatorStack.peek() == ')'){ // check if ')'
-    //         operatorStack.pop(); // pops the ')'
-    //         for (int j = 0; operatorStack.isEmpty(); j--){
-    //             if (operatorStack.peek() == '(') break;
-    //             postFix += operatorStack.peek(); // adds to postfix all ops within parentheses
-    //             operatorStack.pop();
-    //         }
-    //         if (operatorStack.peek() == '(') operatorStack.pop();
-    //     }
+        if (type >= 0){ // checks if it is an operator
+            if (!operatorStack.isEmpty()){ // checks if stack is empty
+                ExpressionAnalyzer oldTerm(operatorStack.peek());
+                int oldType = oldTerm.getType(); // assigns prio number to oldTerm
+                if (oldType < type && oldType < 5){ // checks prio and if it's not a parentheses
+                    for (int j = 0; operatorStack.isEmpty(); j--){
+                        if (operatorStack.peek() == '(') break; // breaks if '(' is found
+                        postFix += operatorStack.peek(); // adds to postfix expr
+                        operatorStack.pop(); // deletes the last operator added
+                    }
+                    if (operatorStack.peek() == '(') operatorStack.pop(); // pops the '('
+                }
+            }
+            operatorStack.push(inp); // pushes operator to stack
+        }
+        else{
+            postFix += inp; // adds to postfix if number
+        }
+        if (!operatorStack.isEmpty() && operatorStack.peek() == ')'){ // check if ')'
+            operatorStack.pop(); // pops the ')'
+            for (int j = 0; operatorStack.isEmpty(); j--){
+                if (operatorStack.peek() == '(') break;
+                postFix += operatorStack.peek(); // adds to postfix all ops within parentheses
+                operatorStack.pop();
+            }
+            if (operatorStack.peek() == '(') operatorStack.pop();
+        }
     }
 
     // Postfix to final
