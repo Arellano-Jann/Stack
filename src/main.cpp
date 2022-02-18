@@ -6,6 +6,7 @@
 int main(){
     std::string input = "";
     std::string postFix = "";
+    std::cout << "Expression?" << std::endl;
     std::cin >> input;
 
     Stack<char> operatorStack;
@@ -18,7 +19,7 @@ int main(){
                 ExpressionAnalyzer oldTerm(operatorStack.peek());
                 int oldType = oldTerm.getType(); // assigns prio number to oldTerm
                 if (oldType < type && oldType < 5){ // checks prio and if it's not a parentheses
-                    for (int j = 0; operatorStack.isEmpty(); j--){
+                    for (int j = 0; !operatorStack.isEmpty(); j--){
                         if (operatorStack.peek() == '(') break; // breaks if '(' is found
                         postFix += operatorStack.peek(); // adds to postfix expr
                         operatorStack.pop(); // deletes the last operator added
@@ -33,17 +34,65 @@ int main(){
         }
         if (!operatorStack.isEmpty() && operatorStack.peek() == ')'){ // check if ')'
             operatorStack.pop(); // pops the ')'
-            for (int j = 0; operatorStack.isEmpty(); j--){
+            for (int j = 0; !operatorStack.isEmpty(); j--){
                 if (operatorStack.peek() == '(') break;
                 postFix += operatorStack.peek(); // adds to postfix all ops within parentheses
                 operatorStack.pop();
             }
             if (operatorStack.peek() == '(') operatorStack.pop();
         }
+
     }
 
-    // Postfix to final
+    //Print Postfix
     std::cout << postFix;
+    for (int j = 0; !operatorStack.isEmpty(); j--){
+        if (operatorStack.peek() == '(') {break;}
+        std::cout << operatorStack.peek(); // puts all ops leftover ops behind postfix
+        operatorStack.pop();
+    }
+    std::cout << std::endl;
+
+    // Postfix to final
+
+    Stack<int> finalStack;
+    for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
+        char charInp = postFix[i]; // to char
+        ExpressionAnalyzer analyze(charInp);
+        int intInp = charInp - '0'; // to int
+        int type = analyze.getType(); // returns a number per op
+        if (type >= 0){ // checks if it is an operator. prio algo
+            int firstNumber = finalStack.peek(); // saves top to var
+            finalStack.pop();
+            int secondNumber = finalStack.peek(); // saves top-1 to var
+            // finalStack.pop(); // deletes the saves off of the stack
+            int finalNumber = 0;
+            switch(type){
+                case '+':
+                    finalNumber = secondNumber+firstNumber;
+                    break;
+                case '-':
+                    finalNumber = secondNumber-firstNumber;
+                    break;
+                case '*':
+                    finalNumber = secondNumber*firstNumber;
+                    break;
+                case '/':
+                    finalNumber = secondNumber/firstNumber;
+                    break;
+                case '%':
+                    finalNumber = secondNumber%firstNumber;
+                    break;
+                default:
+                    throw std::runtime_error("unknown op");
+            }
+            finalStack.push(finalNumber);
+        }
+        else{
+            finalStack.push(intInp); // adds to postfix if number
+        }
+    }
+    std::cout << "Final Result: " << finalStack.peek();
 
 
     return 0;
