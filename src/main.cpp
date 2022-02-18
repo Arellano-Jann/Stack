@@ -83,8 +83,8 @@ int main(){
                 case '%':
                     finalNumber = secondNumber%firstNumber;
                     break;
-                default:
-                    throw std::runtime_error("unknown op");
+                // default:
+                //     throw std::runtime_error("unknown op");
             }
             finalStack.push(finalNumber);
         }
