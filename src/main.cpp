@@ -1,14 +1,24 @@
 #include <iostream>
 #include "../headers/Node.h"
 #include "../headers/Stack.h"
+#include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input;
+    std::string input = "";
+    std::string postFix = "";
     std::cin >> input;
 
     Stack<char> operatorStack;
     for (int i = 0; i < input.length(); i++){
-        operatorStack.push(input[i]);
+        char inp = input[i];
+        ExpressionAnalyzer analyze(inp);
+        int type = analyze.getType();
+        if (type >= 0){
+            operatorStack.push(inp);
+        }
+        else{
+            postFix += inp;
+        }
         
     }
 
