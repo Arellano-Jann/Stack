@@ -4,7 +4,7 @@
 #include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input = "(4+5)";
+    std::string input = "4+(6*5)";
     std::string postFix = "";
     std::cout << "Expression?" << std::endl;
     // std::cin >> input;
@@ -39,35 +39,37 @@ int main(){
                 postFix += operatorStack.peek(); // adds to postfix all ops within parentheses
                 operatorStack.pop();
             }
-            // if (operatorStack.peek() == '(') operatorStack.pop();
+            // if (operatorStack.peek() == '(') operatorStack.pop(); // causes seg fault
         }
 
     }
 
     //Print Postfix
-    std::cout << postFix;
     while (!operatorStack.isEmpty()){
         if (operatorStack.peek() == '(') {break;}
-        std::cout << operatorStack.peek(); // puts all ops leftover ops behind postfix
+        postFix += operatorStack.peek(); // puts all ops leftover ops behind postfix
         operatorStack.pop();
     }
-    std::cout << std::endl;
+    std::cout << postFix << std::endl;
 
     // Postfix to final
 
     Stack<int> finalStack;
     for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
         char charInp = postFix[i]; // to char
-        ExpressionAnalyzer analyze(charInp);
+        std::cout << "Current char: " << charInp << std::endl;
         int intInp = charInp - '0'; // to int
+        std::cout << "Current int: " << intInp << std::endl;
+
+        ExpressionAnalyzer analyze(charInp);
         int type = analyze.getType(); // returns a number per op
         if (type >= 0){ // checks if it is an operator. prio algo
             int firstNumber = finalStack.peek(); // saves top to var
             finalStack.pop();
             int secondNumber = finalStack.peek(); // saves top-1 to var
-            // finalStack.pop(); // deletes the saves off of the stack
+            finalStack.pop(); // deletes the saves off of the stack
             int finalNumber = 0;
-            switch(type){
+            switch(charInp){
                 case '+':
                     finalNumber = secondNumber+firstNumber;
                     break;
@@ -90,7 +92,9 @@ int main(){
         }
         else{
             finalStack.push(intInp); // adds to postfix if number
+            std::cout << "Added to stack: " << finalStack.peek() << std::endl;
         }
+        std::cout << "Top of Stack: " << finalStack.peek() << std::endl << std::endl;
     }
     std::cout << "Final Result: " << finalStack.peek();
 
