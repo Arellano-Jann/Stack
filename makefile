@@ -1,7 +1,7 @@
 HDIR = headers
 CDIR = src
 ODIR = objs
-CPPFLAGS = -std=c++11
+CPPFLAGS = -std=c++11 -g
 DEPS = $(wildcard $(HDIR)/*.h)
 OBJ_FILES = main.o ExpressionAnalyzer.o# put all dependencies for driver here
 OBJS = $(patsubst %.o, $(ODIR)/%.o, $(OBJ_FILES))
