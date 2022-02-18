@@ -4,10 +4,10 @@
 #include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input = "";
+    std::string input = "(4+5)";
     std::string postFix = "";
     std::cout << "Expression?" << std::endl;
-    std::cin >> input;
+    // std::cin >> input;
 
     Stack<char> operatorStack;
     for (int i = 0; i < input.length(); i++){ // Infix to Postfix
@@ -19,7 +19,7 @@ int main(){
                 ExpressionAnalyzer oldTerm(operatorStack.peek());
                 int oldType = oldTerm.getType(); // assigns prio number to oldTerm
                 if (oldType < type && oldType < 5){ // checks prio and if it's not a parentheses
-                    for (int j = 0; !operatorStack.isEmpty(); j--){
+                    while (!operatorStack.isEmpty()){
                         if (operatorStack.peek() == '(') break; // breaks if '(' is found
                         postFix += operatorStack.peek(); // adds to postfix expr
                         operatorStack.pop(); // deletes the last operator added
@@ -34,19 +34,19 @@ int main(){
         }
         if (!operatorStack.isEmpty() && operatorStack.peek() == ')'){ // check if ')'
             operatorStack.pop(); // pops the ')'
-            for (int j = 0; !operatorStack.isEmpty(); j--){
+            while (!operatorStack.isEmpty()){
                 if (operatorStack.peek() == '(') break;
                 postFix += operatorStack.peek(); // adds to postfix all ops within parentheses
                 operatorStack.pop();
             }
-            if (operatorStack.peek() == '(') operatorStack.pop();
+            // if (operatorStack.peek() == '(') operatorStack.pop();
         }
 
     }
 
     //Print Postfix
     std::cout << postFix;
-    for (int j = 0; !operatorStack.isEmpty(); j--){
+    while (!operatorStack.isEmpty()){
         if (operatorStack.peek() == '(') {break;}
         std::cout << operatorStack.peek(); // puts all ops leftover ops behind postfix
         operatorStack.pop();
