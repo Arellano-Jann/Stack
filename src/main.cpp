@@ -3,12 +3,11 @@
 #include "../headers/Stack.h"
 
 int main(){
-    Stack<int> stack;
-    std::cout<< stack.push(5) << std::endl;
-    std::cout<< stack.isEmpty() << std::endl;
-    std::cout<< stack.peek() << std::endl;
-    std::cout<< stack.pop() << std::endl;
-    std::cout<< stack.isEmpty() << std::endl;
+    std::string input;
+    std::cin >> input;
+    for (int i = 0; i < input.length(); i++){
+        
+    }
 
     return 0;
 }
