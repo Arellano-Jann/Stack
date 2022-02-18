@@ -18,16 +18,18 @@ int main(){
             if (!operatorStack.isEmpty()){ // checks if stack is empty
                 ExpressionAnalyzer oldTerm(operatorStack.peek());
                 int oldType = oldTerm.getType(); // assigns prio number to oldTerm
-                if (oldType < type && oldType < 5){ // checks prio and if it's not a parentheses
+                if (oldType < type && type < 5){ // checks prio and if it's not a parentheses
                     while (!operatorStack.isEmpty()){
                         if (operatorStack.peek() == '(') break; // breaks if '(' is found
                         postFix += operatorStack.peek(); // adds to postfix expr
                         operatorStack.pop(); // deletes the last operator added
                     }
-                    if (operatorStack.peek() == '(') operatorStack.pop(); // pops the '('
+                    // if (operatorStack.peek() == '(') operatorStack.pop(); // pops the '('
                 }
             }
             operatorStack.push(inp); // pushes operator to stack
+            std::cout << "Pushed operator: " << operatorStack.peek() << std::endl;
+            std::cout << "Current postfix: " << postFix << std::endl;
         }
         else{
             postFix += inp; // adds to postfix if number
@@ -46,7 +48,8 @@ int main(){
 
     //Print Postfix
     while (!operatorStack.isEmpty()){
-        if (operatorStack.peek() == '(') {break;}
+        if (operatorStack.peek() == '(') {operatorStack.pop();}
+        if (operatorStack.isEmpty()) break;
         postFix += operatorStack.peek(); // puts all ops leftover ops behind postfix
         operatorStack.pop();
     }
