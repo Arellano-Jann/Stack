@@ -14,10 +14,10 @@
 #include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input = "( 45 + 6 ) * ( 44 - 5 )";
+    std::string input = ""; // ( 45 + 6 ) * ( 44 - 5 )
     std::string postFix = "";
-    // std::cout << "Expression?" << std::endl;
-    // std::cin >> input;
+    std::cout << "Expression?" << std::endl;
+    std::getline(std::cin, input);
 
     Stack<char> operatorStack;
     for (int i = 0; i < input.length(); i++){ // Infix to Postfix
