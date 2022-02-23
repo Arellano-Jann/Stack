@@ -40,14 +40,10 @@ int main(){
             }
             operatorStack.push(inp); // pushes operator to stack
             i++;
-            std::cout << "Pushed operator: " << operatorStack.peek() << std::endl;
-            std::cout << "Current postfix: " << postFix << std::endl;
+            // std::cout << "Pushed operator: " << operatorStack.peek() << std::endl;
+            // std::cout << "Current postfix: " << postFix << std::endl;
         }
         else{
-            // std::cout << postFix[postFix.size()-1];
-            // if (postFix[postFix.size()-1] != ' ' && type == 0){
-            //     break;
-            // }
             postFix += inp; // adds to postfix if number
         }
         if (!operatorStack.isEmpty() && operatorStack.peek() == ')'){ // check if ')'
@@ -72,7 +68,7 @@ int main(){
         postFix += " ";
         operatorStack.pop();
     }
-    std::cout << postFix << std::endl;
+    std::cout << "Postfix : " << postFix << std::endl;
 
     // Postfix to final
 
