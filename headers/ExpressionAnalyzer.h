@@ -4,7 +4,7 @@
 
 class ExpressionAnalyzer{
     char c;
-    std::string operatorList = "*/%+-()";
+    std::string operatorList = " */%+-()";
     // 0* , 1/ , 2% , 3+ , 4- , 5( , 6)
     int m_type;
 

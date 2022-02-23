@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @author Jann Arellano
+ * @brief 
+ * @version 0.1
+ * @date 2022-02-13
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <iostream>
 #include "../headers/Node.h"
 #include "../headers/Stack.h"
@@ -14,7 +24,7 @@ int main(){
         char inp = input[i];
         ExpressionAnalyzer analyze(inp);
         int type = analyze.getType();
-        if (type >= 0){ // checks if it is an operator
+        if (type >= 1){ // checks if it is an operator
             if (!operatorStack.isEmpty()){ // checks if stack is empty
                 ExpressionAnalyzer oldTerm(operatorStack.peek());
                 int oldType = oldTerm.getType(); // assigns prio number to oldTerm
@@ -59,20 +69,24 @@ int main(){
 
     Stack<int> finalStack;
     for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
-        char charInp = postFix[i]; // to char
+        std::string charInp = postFix[i]; // to char
+        for (int j = i+1; j < postFix.length(); j++){
+            if (postFix[j] == ' ') break; 
+            charInp += postFix[j]; // adds more numbers for multidigit numbers
+        }
         std::cout << "Current char: " << charInp << std::endl;
-        int intInp = charInp - '0'; // to int
+        int intInp = std::stoi(charInp); // to int
         std::cout << "Current int: " << intInp << std::endl;
 
-        ExpressionAnalyzer analyze(charInp);
+        ExpressionAnalyzer analyze(charInp[0]); // returns the first character (without null terminator)
         int type = analyze.getType(); // returns a number per op
-        if (type >= 0){ // checks if it is an operator. prio algo
+        if (type >= 1){ // checks if it is an operator. prio algo
             int firstNumber = finalStack.peek(); // saves top to var
             finalStack.pop();
             int secondNumber = finalStack.peek(); // saves top-1 to var
             finalStack.pop(); // deletes the saves off of the stack
             int finalNumber = 0;
-            switch(charInp){
+            switch(charInp){ // might bug out because 
                 case '+':
                     finalNumber = secondNumber+firstNumber;
                     break;
