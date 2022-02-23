@@ -14,7 +14,7 @@
 #include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input = "45 * 6 + 55";
+    std::string input = "( 45 + 6 ) * ( 5 - 44 )";
     std::string postFix = "";
     // std::cout << "Expression?" << std::endl;
     // std::cin >> input;
@@ -32,6 +32,7 @@ int main(){
                     while (!operatorStack.isEmpty()){
                         if (operatorStack.peek() == '(') break; // breaks if '(' is found
                         postFix += operatorStack.peek(); // adds to postfix expr
+                        postFix += " ";
                         operatorStack.pop(); // deletes the last operator added
                     }
                     // if (operatorStack.peek() == '(') operatorStack.pop(); // pops the '('
@@ -66,6 +67,7 @@ int main(){
     while (!operatorStack.isEmpty()){
         if (operatorStack.peek() == '(') {operatorStack.pop();}
         if (operatorStack.isEmpty()) break;
+        if (postFix[postFix.size()-1] != ' ') postFix += " ";
         postFix += operatorStack.peek(); // puts all ops leftover ops behind postfix
         postFix += " ";
         operatorStack.pop();
@@ -74,55 +76,55 @@ int main(){
 
     // Postfix to final
 
-    // Stack<int> finalStack;
-    // std::string charInp = "";
-    // for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
-    //     charInp = postFix[i]; // to char
-    //     for (int j = i+1; j < postFix.length(); j++){
-    //         if (postFix[j] == ' ') break; 
-    //         charInp += postFix[j]; // adds more numbers for multidigit numbers
-    //         i=j; // bugs or something
-    //     }
-    //     std::cout << "Current char: " << charInp << std::endl;
-    //     int intInp = std::stoi(charInp); // to int
-    //     std::cout << "Current int: " << intInp << std::endl;
+    Stack<int> finalStack;
+    std::string charInp = "";
+    for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
+        charInp = postFix[i]; // to char
+        for (int j = i+1; j < postFix.length(); j++){
+            if (postFix[j] == ' ') break; 
+            charInp += postFix[j]; // adds more numbers for multidigit numbers
+            i=j; // bugs or something
+        }
+        std::cout << "Current char: " << charInp << std::endl;
+        int intInp = std::stoi(charInp); // to int
+        std::cout << "Current int: " << intInp << std::endl;
 
-    //     ExpressionAnalyzer analyze(charInp[0]); // returns the first character (without null terminator)
-    //     int type = analyze.getType(); // returns a number per op
-    //     if (type >= 1){ // checks if it is an operator. prio algo
-    //         int firstNumber = finalStack.peek(); // saves top to var
-    //         finalStack.pop();
-    //         int secondNumber = finalStack.peek(); // saves top-1 to var
-    //         finalStack.pop(); // deletes the saves off of the stack
-    //         int finalNumber = 0;
-    //         switch(charInp[0]){ // might bug out because 
-    //             case '+':
-    //                 finalNumber = secondNumber+firstNumber;
-    //                 break;
-    //             case '-':
-    //                 finalNumber = secondNumber-firstNumber;
-    //                 break;
-    //             case '*':
-    //                 finalNumber = secondNumber*firstNumber;
-    //                 break;
-    //             case '/':
-    //                 finalNumber = secondNumber/firstNumber;
-    //                 break;
-    //             case '%':
-    //                 finalNumber = secondNumber%firstNumber;
-    //                 break;
-    //             // default:
-    //             //     throw std::runtime_error("unknown op");
-    //         }
-    //         finalStack.push(finalNumber);
-    //     }
-    //     else{
-    //         finalStack.push(intInp); // adds to postfix if number
-    //         std::cout << "Added to stack: " << finalStack.peek() << std::endl;
-    //     }
-    //     std::cout << "Top of Stack: " << finalStack.peek() << std::endl << std::endl;
-    // }
-    // std::cout << "Final Result: " << finalStack.peek();
+        ExpressionAnalyzer analyze(charInp[0]); // returns the first character (without null terminator)
+        int type = analyze.getType(); // returns a number per op
+        if (type >= 1){ // checks if it is an operator. prio algo
+            int firstNumber = finalStack.peek(); // saves top to var
+            finalStack.pop();
+            int secondNumber = finalStack.peek(); // saves top-1 to var
+            finalStack.pop(); // deletes the saves off of the stack
+            int finalNumber = 0;
+            switch(charInp[0]){ // might bug out because 
+                case '+':
+                    finalNumber = secondNumber+firstNumber;
+                    break;
+                case '-':
+                    finalNumber = secondNumber-firstNumber;
+                    break;
+                case '*':
+                    finalNumber = secondNumber*firstNumber;
+                    break;
+                case '/':
+                    finalNumber = secondNumber/firstNumber;
+                    break;
+                case '%':
+                    finalNumber = secondNumber%firstNumber;
+                    break;
+                // default:
+                //     throw std::runtime_error("unknown op");
+            }
+            finalStack.push(finalNumber);
+        }
+        else{
+            finalStack.push(intInp); // adds to postfix if number
+            std::cout << "Added to stack: " << finalStack.peek() << std::endl;
+        }
+        std::cout << "Top of Stack: " << finalStack.peek() << std::endl << std::endl;
+    }
+    std::cout << "Final Result: " << finalStack.peek();
 
 
     return 0;
