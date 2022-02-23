@@ -1,3 +1,9 @@
+# Extra Credit Assignment
+Works for : 
+1. 2 digit numbers
+2. Modulo %
+3. Parentheses ()
+
 # Homework 3
 
 ## Project Goals
