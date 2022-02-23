@@ -81,13 +81,13 @@ int main(){
             if (postFix[j] == ' ') break; 
             charInp += postFix[j]; // adds more numbers for multidigit numbers
         }
-        std::cout << "Current char: " << charInp << std::endl;
+        // std::cout << "Current char: " << charInp << std::endl;
         int intInp = 0;
         ExpressionAnalyzer postFixAnalyzer(charInp[0]);
         if (postFixAnalyzer.getType() == -1){
             intInp = std::stoi(charInp); // to int
         } 
-        std::cout << "Current int: " << intInp << std::endl;
+        // std::cout << "Current int: " << intInp << std::endl;
 
         ExpressionAnalyzer analyze(charInp[0]); // returns the first character (without null terminator)
         int type = analyze.getType(); // returns a number per op
@@ -120,11 +120,11 @@ int main(){
         }
         else{
             finalStack.push(intInp); // adds to postfix if number
-            std::cout << "Added to stack: " << finalStack.peek() << std::endl;
+            // std::cout << "Added to stack: " << finalStack.peek() << std::endl;
         }
-        std::cout << "Top of Stack: " << finalStack.peek() << std::endl << std::endl;
+        // std::cout << "Top of Stack: " << finalStack.peek() << std::endl << std::endl;
     }
-    std::cout << "Final Result: " << finalStack.peek();
+    std::cout << "Final Result: " << finalStack.peek()<< std::endl;
 
 
     return 0;
