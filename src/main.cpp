@@ -14,7 +14,7 @@
 #include "../headers/ExpressionAnalyzer.h"
 
 int main(){
-    std::string input = "( 45 + 6 ) * ( 5 - 44 )";
+    std::string input = "( 45 + 6 ) * ( 44 - 5 )";
     std::string postFix = "";
     // std::cout << "Expression?" << std::endl;
     // std::cin >> input;
@@ -73,16 +73,20 @@ int main(){
     // Postfix to final
 
     Stack<int> finalStack;
-    std::string charInp = "";
     for (int i = 0; i < postFix.length(); i++){ // Infix to Postfix
+        std::string charInp = "";
         charInp = postFix[i]; // to char
         for (int j = i+1; j < postFix.length(); j++){
+            i=j; // bugs or something
             if (postFix[j] == ' ') break; 
             charInp += postFix[j]; // adds more numbers for multidigit numbers
-            i=j; // bugs or something
         }
         std::cout << "Current char: " << charInp << std::endl;
-        int intInp = std::stoi(charInp); // to int
+        int intInp = 0;
+        ExpressionAnalyzer postFixAnalyzer(charInp[0]);
+        if (postFixAnalyzer.getType() == -1){
+            intInp = std::stoi(charInp); // to int
+        } 
         std::cout << "Current int: " << intInp << std::endl;
 
         ExpressionAnalyzer analyze(charInp[0]); // returns the first character (without null terminator)
