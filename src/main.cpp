@@ -39,12 +39,13 @@ int main(){
                 }
             }
             operatorStack.push(inp); // pushes operator to stack
-            i++;
+            // i++;
             // std::cout << "Pushed operator: " << operatorStack.peek() << std::endl;
             // std::cout << "Current postfix: " << postFix << std::endl;
         }
-        else{
+        else if (type != 0) {
             postFix += inp; // adds to postfix if number
+            postFix += " ";
         }
         if (!operatorStack.isEmpty() && operatorStack.peek() == ')'){ // check if ')'
             operatorStack.pop(); // pops the ')'
@@ -78,7 +79,8 @@ int main(){
         charInp = postFix[i]; // to char
         for (int j = i+1; j < postFix.length(); j++){
             i=j; // bugs or something
-            if (postFix[j] == ' ') break; 
+            ExpressionAnalyzer edgeAnalyzer(postFix[j]);
+            if (edgeAnalyzer.getType() >= 0) break; 
             charInp += postFix[j]; // adds more numbers for multidigit numbers
         }
         // std::cout << "Current char: " << charInp << std::endl;
